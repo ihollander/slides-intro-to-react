@@ -1,0 +1,467 @@
+<!-- Begin setup -->
+
+import Layout from "./components/layout";
+import BabelRepl from "./components/babel-repl";
+import LiveEditor from "./components/live-editor";
+import SoloEditor from "./components/solo-editor";
+import { Logo } from "./components/shared";
+import reactUsage from "./assets/react-usage.png";
+
+import baseTheme from "./theme";
+
+export const theme = baseTheme;
+
+<Head>
+  <title>Intro to React</title>
+</Head>
+
+<!-- End setup -->
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# Intro to React
+
+<Logo />
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# ✅ Objectives
+
+We'll learn...
+
+<Steps>
+
+- Why developers choose React
+- React's philosophy
+- How React works
+
+</Steps>
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🤔 Why React?
+
+<img src={reactUsage} alt="component diagram" style={{ height: "600px" }} />
+
+_&mdash; [Frontend Framework Usage, 2020 State of JS Survey](https://2020.stateofjs.com/en-US/technologies/front-end-frameworks/)_
+
+</Layout>
+
+<Notes>
+
+- One key reason we teach React is simply its popularity in the marketplace
+- But React is also popular for a reason
+- It solved a lot of problems developers had in the past with other frontend libraries
+- It also has some good tricks up its sleeve to solve these problems in a way that doesn't sacrifice performance
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🤔 Why React?
+
+Writing vanilla JavaScript is hard!
+Particularly when it comes to:
+
+- Creating/Updating DOM elements
+- Code organization (separation of concerns)
+
+</Layout>
+
+<Notes>
+
+When I asked some of you about your vanilla JS projects, these were some of the things you mentioned having challenges with.
+
+- You're not alone! These are hard problems, and something JS developers struggled with for a long time
+- React gives us code to solve these problems by _abstracting_ the work of manipulating the DOM
+- It also has strong opinions about how your code should be organized
+  - If you "buy into" React's philosophy, you're gonna have a good time with React...
+  - If you fight against it, you'll struggle
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 💡 React Philosophy
+
+- Uses **declarative syntax (JSX)**
+  - Makes it easier to work with the DOM
+  - Clearer connection between the code we write and what is displayed in the browser
+- Break down complex UI into smaller **components**
+  - Separation of concerns
+  - Easier to maintain
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🎉 Declarative Syntax
+
+<Steps>
+
+Instead of describing _how to do something_...
+
+<div>
+<SoloEditor>
+
+```js
+const h1 = document.createElement("h1");
+h1.id = "main";
+h1.className = "blue";
+h1.textContent = "Hello!";
+```
+
+</SoloEditor>
+</div>
+
+...just describe _what we want_:
+
+<div>
+<SoloEditor>
+
+```js
+const h1 = (
+  <h1 id="main" className="blue">
+    Hello from JSX!
+  </h1>
+);
+```
+
+</SoloEditor>
+</div>
+
+</Steps>
+
+</Layout>
+
+<Notes>
+
+Has anyone heard about declarative coding vs imperative code?
+
+- Ask for an example
+- Chipotle analogy: ordering a burrito vs making one by hand
+
+Declarative code lets us write something more _abstract_.
+
+- We don't have to worry about the low-level details of what's happening under the hood
+- We can focus more on the end result (in this case, what's being rendered to the DOM)
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<Layout>
+
+# 🤔 But How?
+
+Under the hood, React apps use a tool called Babel to **transpile** the JSX syntax to valid JavaScript:
+
+<Steps>
+
+- We write JSX
+- Babel **transpiles** JSX into valid JavaScript
+- That **transpiled** code is what actually runs in the browser
+
+</Steps>
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+## JSX ➡️ Babel ➡️ JS
+
+<BabelRepl>
+
+```js
+const h1 = (
+  <h1 id="main" className="blue">
+    Hello from JSX!
+  </h1>
+);
+```
+
+</BabelRepl>
+
+</Layout>
+
+<Notes>
+
+In this window, the left-hand side is JSX (JavaScript XML). It looks like HTML, but it's not!
+This is a special kind of markup that we use to tell React how we want the DOM to look.
+
+We write JSX in our JavaScript files, and under the hood, Babel turns it into valid JavaScript
+code before the browser runs it. If tried running the code on the left in the browser you'd get a syntax error.
+But after Babel is done with it, it's now valid syntax.
+
+You don't have to worry too much about this; you can just use JSX in React without thinking about it.
+But it's good to know what's happening. At the end of the day, it's all still JavaScript.
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🛠 Components
+
+Components are the building blocks of React. A **component** is a function that:
+
+- Takes in some **raw data (props)**
+- Returns **user interface (JSX)**
+
+<SoloEditor>
+
+```js
+function Header(props) {
+  return (
+    <div>
+      <h3>{props.title}</h3>
+      <h4>Subtitle: {props.subtitle}</h4>
+    </div>
+  );
+}
+```
+
+</SoloEditor>
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+<LiveEditor>
+
+```js
+function Header(props) {
+  return (
+    <div>
+      <h3>{props.title}</h3>
+      <h4>Subtitle: {props.subtitle}</h4>
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <Header title="Let's Learn React" subtitle="Components" />,
+  document.getElementById("root")
+);
+```
+
+</LiveEditor>
+
+</Layout>
+
+<Notes>
+
+Here's an example of a React component in code. On the left is the code we write.
+On the right is the HTML that the browser renders.
+
+Think of a component like a **template** for how we want to display some data.
+
+As React developers, your job is to take some raw data (a string, an object, an array, etc) and decide
+how a user should interact with that data (how it should be displayed on the page).
+
+Components are what make this possible!
+
+The syntax might take some getting used to, but remember, in the end it's all just JavaScript.
+Think of writing `<Header props="something">` like us telling React to call the function `Header`,
+and pass one argument of an object with key-value pairs. (we could even write it out this way and it'd still work)
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 👷‍♀️ Component Composition
+
+<img
+  src="https://curriculum-content.s3.amazonaws.com/react/yelp-components.png"
+  alt="component diagram"
+  style={{ height: "600px" }}
+/>
+
+</Layout>
+
+<Notes>
+
+The last example we saw was a simple React component, but a typical React app can have dozens or even hundreds of components.
+The great thing about components is that we can **compose** them (make them work together) to put together complex layouts.
+(Even this slideshow is just a bunch of React components!)
+
+The image here is part of Yelp's website, and an example of some of the components they might use to put together an app like this.
+Take note of how components let us:
+
+- separate different areas of concern (navigation vs map view vs list view)
+- create reusable templates (we can re-use the same code from the ResultItem component to display multiple results)
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+<LiveEditor>
+
+```js
+/* Component 1 */
+function Article(props) {
+  return (
+    <div>
+      <h3>{props.title}</h3>
+      <h4>Subtitle: {props.subtitle}</h4>
+      <hr />
+      <Comment content="First!" />
+      <Comment content="What a great article." />
+    </div>
+  );
+}
+
+/* Component 2 */
+function Comment(props) {
+  return <p>{props.content}</p>;
+}
+
+/* Render the whole application */
+ReactDOM.render(
+  <Article title="Let's Learn React" subtitle="Components" />,
+  document.getElementById("root")
+);
+```
+
+</LiveEditor>
+
+</Layout>
+
+<Notes>
+
+Here's an example of what the code looks like for composing multiple components together.
+An article can have many comments, so the we're using the Comment component within the Article component.
+
+Each component is responsible for its own template, but its "parent" (whichever component returns it)
+is responsible for providing its data.
+
+We're _reusing_ the Comment component to make a couple of `<p>` tags, each with their own content.
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🚗 React Roadmap
+
+- Create a static frontend site with **components** and **props** (DOM Manipulation)
+- Use **state** and **events** to make your site dynamic (Event Handling)
+- Add **side effects** and **data fetching** to communicate with a server (Network Communication)
+
+</Layout>
+
+<Notes>
+
+Your objective during week 1 of React is to learn the fundamentals of React to make a single-page application.
+We'll be building something similar to what you made in Phase 3, but with a new set of tools to make that process easier.
+
+Learning this will be challenging because you'll need to learn new syntax, as well as learning a new philosophy for how to organize your code.
+And since at the end of the day, React is still JavaScript, you'll need your sharpest JS skills to become great React developers.
+
+Right now, the most important thing is to start writing code, so in the next part of the lecture we'll get into a little exercise
+to practice with components, JSX and props.
+
+</Notes>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 👷‍♀️ Resources
+
+- [React with Hooks Docs](https://reactwithhooks.netlify.app/)
+- [Babel Playground](https://babeljs.io/repl)
+- [Create React App](http://create-react-app.dev/)
+- [Dan Abramov's Blog](https://overreacted.io/)
+
+</Layout>
+
+<!-- End Slide -->
+
+---
+
+<!-- Begin Slide -->
+
+<Layout>
+
+# 🤔 Questions?
+
+</Layout>
+
+<!-- End Slide -->

@@ -1,0 +1,22 @@
+{
+  "name": "intro-to-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mdx-deck": "4.0.0",
+    "@babel/standalone": "^7.13.14",
+    "prettier": "^2.2.1",
+    "prism-react-renderer": "^1.2.0",
+    "react-live": "^2.2.3",
+    "react-simple-code-editor": "^0.10.0",
+    "styled-components": "^5.2.3"
+  }
+}
