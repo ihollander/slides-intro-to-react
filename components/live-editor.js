@@ -22,12 +22,20 @@ function LiveEditor({ children }) {
   useEffect(() => {
     const previewEl = previewRef.current?.querySelector("#live-preview");
     if (previewEl) {
-      setHtml(() =>
-        prettier.format(previewEl.innerHTML, {
-          parser: "html",
-          plugins: [parserHtml],
-        })
-      );
+      // TODO: need a way to run this when LivePreview updates, which will be after input updates...
+      // or a way to replace innerHTML altogether and get the React tree rendering result another way
+      const interval = setTimeout(() => {
+        setHtml(() =>
+          prettier.format(previewEl.innerHTML, {
+            parser: "html",
+            plugins: [parserHtml],
+          })
+        );
+      }, 300);
+
+      return function cleanup() {
+        clearInterval(interval);
+      };
     }
   }, [input]);
 
