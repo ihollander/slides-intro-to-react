@@ -25,12 +25,14 @@ function LiveEditor({ children }) {
       // TODO: need a way to run this when LivePreview updates, which will be after input updates...
       // or a way to replace innerHTML altogether and get the React tree rendering result another way
       const interval = setTimeout(() => {
-        setHtml(() =>
-          prettier.format(previewEl.innerHTML, {
+        const html = prettier.format(
+          `<div id="root">${previewEl.innerHTML}</div>`,
+          {
             parser: "html",
             plugins: [parserHtml],
-          })
+          }
         );
+        setHtml(html);
       }, 300);
 
       return function cleanup() {
